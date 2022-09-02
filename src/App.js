@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styled from "styled-components";
 import MovieComponent from "./components/MovieComponent";
 import MovieInfoComponent from "./components/MovieInfoComponent";
@@ -79,16 +79,15 @@ opacity: 50%;
 `;
 
 function App() {
-
-  const[searchQuery,setSearchQuery]=useState();
+  
+  const[searchQuery,setSearchQuery]=useState("Avengers");
   const [timeOutId,setTimeOutId]=useState();
   const[movieList,setMovieList]=useState([]);
   const [selectedMovie, onMovieSelected] = useState();
 
 
-   const fetchData =async (searchString) => {
+   const  fetchData =async (searchString) => {
     const response =await axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`);
-    console.log(response);
     setMovieList(response.data.Search);
    };
 
@@ -98,6 +97,10 @@ function App() {
     const timeout= setTimeout(()=>fetchData(event.target.value),500)
     setTimeOutId(timeout);
   };
+
+   useEffect(() => {
+     fetchData(searchQuery);
+   }, []);
 
   return (
     <>
@@ -123,7 +126,7 @@ function App() {
           />
         )}
         <MovieListContainer>
-          {movieList.length ? (
+          { movieList?.length ? (
             movieList.map((movie, index) => (
               <MovieComponent
                 key={index}

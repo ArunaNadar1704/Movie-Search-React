@@ -66,6 +66,7 @@ const MovieInfoComponent = (props) => {
       `https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`
     ).then((response) => setMovieInfo(response.data));
   }, [selectedMovie]);
+  
   return (
     <Container>
       {movieInfo ? (
