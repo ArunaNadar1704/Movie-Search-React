@@ -1,1 +1,1 @@
-Site Link : https://movie-search-with-react.netlify.app/
+Site Link :https://search-movies-with-react.netlify.app/
